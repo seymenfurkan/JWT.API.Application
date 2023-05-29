@@ -1,4 +1,4 @@
-﻿namespace JWT.API.Application
+﻿namespace JWT.API.Application.Models
 {
     public class UserConstants
     {

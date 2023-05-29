@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using JWT.API.Application.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -51,7 +52,7 @@ namespace JWT.API.Application.Controllers
 
         private User Authenticate(User userLogin)
         {
-            var currentUser = UserConstants.Users.FirstOrDefault(x => x.UserName.ToLower() == userLogin.UserName.ToLower() && x.Password == userLogin.Password);
+            var currentUser = UserConstants.Users.FirstOrDefault(x => x.UserName.ToLower() == userLogin.UserName.ToLower() && x.Password == userLogin.Password && x.Role == userLogin.Role);
             if (currentUser != null)
             {
                 return currentUser;
