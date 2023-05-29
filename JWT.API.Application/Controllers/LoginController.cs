@@ -38,7 +38,13 @@ namespace JWT.API.Application.Controllers
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:SecurityKey"]));
             var credential = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            var token = new JwtSecurityToken(_config["JWT:Issuer"], _config["JWT:Audience"],expires:DateTime.Now.AddMinutes(3),signingCredentials:credential);
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.GivenName , user.UserName),
+                new Claim(ClaimTypes.Role , user.Role)
+            };
+
+            var token = new JwtSecurityToken(_config["JWT:Issuer"], _config["JWT:Audience"],claims,expires:DateTime.Now.AddMinutes(3),signingCredentials:credential);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
